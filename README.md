@@ -1,4 +1,4 @@
-# Einkaufsliste HTML- und JavaScript-Code
+# List App (HTML- CSS- & JavaScript-Code)
 Dieses Repository enthält den HTML- und JavaScript-Code für die Einkaufsliste, welche im Modul "Grundlagen der Programmierung" des Kurses "Mobile App Development" entwickelt wird.  
 ![JavaScript Ergebnis](img/Einkaufsliste.png)
 
