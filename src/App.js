@@ -18,18 +18,18 @@ class App extends React.Component {
   }
 
   initialisieren() {
-    let fantasy = Modell.gruppeHinzufuegen("Fantasy")
-    let film1 = fantasy.artikelHinzufuegen("Der Dunkle Kristall")
+    let fantasy = Modell.gruppeHinzufuegen("Power Parts")
+    let film1 = fantasy.artikelHinzufuegen("Highsider Spiegel")
     film1.gekauft = true
-    fantasy.artikelHinzufuegen("Die Barbaren")
-    let scifi = Modell.gruppeHinzufuegen("Science Fiction")
-    let film2 = scifi.artikelHinzufuegen("Alita - Battle Angel")
+    fantasy.artikelHinzufuegen("Heizgriffe")
+    let scifi = Modell.gruppeHinzufuegen("Motor")
+    let film2 = scifi.artikelHinzufuegen("Zylinderkopfdichtung Zontes G1")
     film2.gekauft = true
-    scifi.artikelHinzufuegen("Mad Max - Fury Road")
-    let dokus = Modell.gruppeHinzufuegen("Dokumentationen")
-    let film3 = dokus.artikelHinzufuegen("Endgame - Blaupause für die Globale Versklavung")
+    scifi.artikelHinzufuegen("Vergaser Zontes G1")
+    let dokus = Modell.gruppeHinzufuegen("Wartung")
+    let film3 = dokus.artikelHinzufuegen("Power1 4T Motorenöl 10W-40")
     film3.gekauft = true
-    dokus.artikelHinzufuegen("Die Kabale")
+    dokus.artikelHinzufuegen("DID Kettensatz")
   }
 
   einkaufenAufZuKlappen() {
@@ -102,12 +102,12 @@ class App extends React.Component {
     return (
       <div id="container">
         <header>
-          <h1>Watchlist</h1>
+          <h1>Moto Parts Picker</h1>
           <label
             className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
             <span className="mdc-text-field__ripple"></span>
             <input className="mdc-text-field__input" type="search"
-                   id="artikelEingabe" placeholder="Artikel hinzufügen"
+                   id="artikelEingabe" placeholder="Artikel hinzufügen..."
                    onKeyPress={e => (e.key == 'Enter') ? this.artikelHinzufuegen() : ''}/>
             <span className="mdc-line-ripple"></span>
             <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
@@ -120,7 +120,7 @@ class App extends React.Component {
 
         <main>
           <section>
-            <h2>Noch zu kaufen
+            <h2>Bestellen
               <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
                 {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
@@ -131,7 +131,7 @@ class App extends React.Component {
           </section>
           <hr/>
           <section>
-            <h2>Schon gekauft
+            <h2>Bereits bestellt
               <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
                 {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
