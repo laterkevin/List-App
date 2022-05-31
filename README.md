@@ -13,7 +13,7 @@ Die HTML-Aufgaben befinden sich hier:
 <summary>Endergebnis HTML</summary>
 Das Endergebnis des HTML-Teils kann z.B. so aussehen:
 
-![HTML Ergebnis](img/Stufe5.png)
+![HTML Ergebnis](img/*.png)
 </details>
 
 Die JavaScript-Entwicklungsschritte befinden sich in den Verzeichnissen "lektion1" bis "lektion10" 
@@ -22,4 +22,4 @@ Die Aufgabe der Kursteilnehmer ist es, die Einkaufsliste jeden Tag ein wenig wei
 ReadMe geändert.
 
 
-Test Änderung 
+Kevin Later 
