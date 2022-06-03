@@ -1,13 +1,19 @@
 import React from 'react'
+import Modell from './model/Shopping'
 import GruppenTag from './components/GruppenTag'
 import GruppenDialog from './components/GruppenDialog'
-import Modell from './model/Shopping'
+import SortierDialog from "./components/SortierDialog";
 
-
+/**
+ * @version 1.0
+ * @author Alfred Walther <alfred.walther@syntax-institut.de>
+ * @description Diese App ist eine Einkaufsliste mit React.js und separatem Model, welche Offline verwendet werden kann
+ * @license Gnu Public Lesser License 3.0
+ *
+ */
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.initialisieren()
     this.state = {
       aktiveGruppe: null,
       showGruppenDialog: false,
@@ -17,30 +23,44 @@ class App extends React.Component {
     }
   }
 
-  initialisieren() {
-    let fantasy = Modell.gruppeHinzufuegen("Power Parts")
-    let film1 = fantasy.artikelHinzufuegen("Highsider Spiegel")
-    film1.gekauft = true
-    fantasy.artikelHinzufuegen("Heizgriffe")
-    let scifi = Modell.gruppeHinzufuegen("Motor")
-    let film2 = scifi.artikelHinzufuegen("Zylinderkopfdichtung Zontes G1")
-    film2.gekauft = true
-    scifi.artikelHinzufuegen("Vergaser Zontes G1")
-    let dokus = Modell.gruppeHinzufuegen("Wartung")
-    let film3 = dokus.artikelHinzufuegen("Power1 4T Motorenöl 10W-40")
-    film3.gekauft = true
-    dokus.artikelHinzufuegen("DID Kettensatz")
+  componentDidMount() {
+    Modell.laden()
+    // Auf-/Zu-Klapp-Zustand aus dem LocalStorage laden
+    let einkaufenAufgeklappt = localStorage.getItem("einkaufenAufgeklappt")
+    einkaufenAufgeklappt = (einkaufenAufgeklappt == null) ? true : JSON.parse(einkaufenAufgeklappt)
+
+    let erledigtAufgeklappt = localStorage.getItem("erledigtAufgeklappt")
+    erledigtAufgeklappt = (erledigtAufgeklappt == null) ? false : JSON.parse(erledigtAufgeklappt)
+
+    this.setState({
+      aktiveGruppe: Modell.aktiveGruppe,
+      einkaufenAufgeklappt: einkaufenAufgeklappt,
+      erledigtAufgeklappt: erledigtAufgeklappt
+    })
   }
 
   einkaufenAufZuKlappen() {
-    let neuerZustand = !this.state.einkaufenAufgeklappt
+    const neuerZustand = !this.state.einkaufenAufgeklappt
+    localStorage.setItem("einkaufenAufgeklappt", neuerZustand)
     this.setState({einkaufenAufgeklappt: neuerZustand})
   }
 
   erledigtAufZuKlappen() {
-    this.setState({erledigtAufgeklappt: !this.state.erledigtAufgeklappt})
+    const neuerZustand = !this.state.erledigtAufgeklappt
+    localStorage.setItem("erledigtAufgeklappt", neuerZustand)
+    this.setState({erledigtAufgeklappt: neuerZustand})
   }
 
+  lsLoeschen() {
+    if (confirm("Wollen Sie wirklich alles löschen?!")) {
+      localStorage.clear()
+    }
+  }
+
+  /**
+   * Hakt einen Artikel ab oder reaktiviert ihn
+   * @param {Artikel} artikel - der aktuelle Artikel, der gerade abgehakt oder reaktiviert wird
+   */
   artikelChecken = (artikel) => {
     artikel.gekauft = !artikel.gekauft
     const aktion = (artikel.gekauft) ? "erledigt" : "reaktiviert"
@@ -49,7 +69,6 @@ class App extends React.Component {
   }
 
   artikelHinzufuegen() {
-    // ToDo: implementiere diese Methode
     const eingabe = document.getElementById("artikelEingabe")
     const artikelName = eingabe.value.trim()
     if (artikelName.length > 0) {
@@ -66,29 +85,40 @@ class App extends React.Component {
     this.setState({aktiveGruppe: Modell.aktiveGruppe})
   }
 
+  closeSortierDialog = (reihenfolge, sortieren) => {
+    if (sortieren) {
+      Modell.sortieren(reihenfolge)
+    }
+    this.setState({showSortierDialog: false})
+  }
+
   render() {
     let nochZuKaufen = []
     if (this.state.einkaufenAufgeklappt == true) {
       for (const gruppe of Modell.gruppenListe) {
-        nochZuKaufen.push(<GruppenTag
-          key={gruppe.id}
-          gruppe={gruppe}
-          gekauft={false}
-          aktiv={gruppe == this.state.aktiveGruppe}
-          aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
-          checkHandler={this.artikelChecken}/>)
+        nochZuKaufen.push(
+          <GruppenTag
+            key={gruppe.id}
+            aktiv={gruppe == this.state.aktiveGruppe}
+            aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
+            checkHandler={this.artikelChecken}
+            gekauft={false}
+            gruppe={gruppe}
+          />)
       }
     }
 
     let schonGekauft = []
     if (this.state.erledigtAufgeklappt) {
       for (const gruppe of Modell.gruppenListe) {
-        schonGekauft.push(<GruppenTag
-          key={gruppe.id}
-          gruppe={gruppe}
-          gekauft={true}
-          aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
-          checkHandler={this.artikelChecken}/>)
+        schonGekauft.push(
+          <GruppenTag
+            key={gruppe.id}
+            aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
+            checkHandler={this.artikelChecken}
+            gekauft={true}
+            gruppe={gruppe}
+          />)
       }
     }
 
@@ -99,15 +129,24 @@ class App extends React.Component {
         onDialogClose={() => this.setState({showGruppenDialog: false})}/>
     }
 
+    let sortierDialog = ""
+    if (this.state.showSortierDialog) {
+      sortierDialog = <SortierDialog onDialogClose={this.closeSortierDialog}/>
+    }
+
     return (
       <div id="container">
         <header>
-          <h1>Moto Parts Picker</h1>
+          <div className="wrap">
+            <span className="title" onClick="location='http://thepeople.com.au'">Todo's</span>
+            <p><span className="subtitle" onClick="location='http://thepeople.com.au'">Kevin Later's Task Pocket Knife</span></p>
+          </div>
+          <h1></h1>
           <label
             className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
             <span className="mdc-text-field__ripple"></span>
             <input className="mdc-text-field__input" type="search"
-                   id="artikelEingabe" placeholder="Artikel hinzufügen..."
+                   id="artikelEingabe" placeholder="Artikel hinzufügen"
                    onKeyPress={e => (e.key == 'Enter') ? this.artikelHinzufuegen() : ''}/>
             <span className="mdc-line-ripple"></span>
             <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
@@ -120,7 +159,7 @@ class App extends React.Component {
 
         <main>
           <section>
-            <h2>Bestellen
+            <h2>Task
               <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
                 {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
@@ -131,7 +170,7 @@ class App extends React.Component {
           </section>
           <hr/>
           <section>
-            <h2>Bereits bestellt
+            <h2>Erledigt
               <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
                 {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
               </i>
@@ -149,17 +188,20 @@ class App extends React.Component {
             <span className="material-icons">bookmark_add</span>
             <span className="mdc-button__ripple"></span> Gruppen
           </button>
-          <button className="mdc-button mdc-button--raised">
+          <button className="mdc-button mdc-button--raised"
+                  onClick={() => this.setState({showSortierDialog: true})}>
             <span className="material-icons">sort</span>
             <span className="mdc-button__ripple"></span> Sort
           </button>
-          <button className="mdc-button mdc-button--raised">
-            <span className="material-icons">settings</span>
-            <span className="mdc-button__ripple"></span> Setup
+          <button className="mdc-button mdc-button--raised"
+                  onClick={this.lsLoeschen}>
+            <span className="material-icons">clear_all</span>
+            <span className="mdc-button__ripple"></span> Clear
           </button>
         </footer>
 
         {gruppenDialog}
+        {sortierDialog}
       </div>
     )
   }

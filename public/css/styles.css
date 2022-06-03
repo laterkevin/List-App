@@ -1,10 +1,12 @@
 #root {
-    width: 23rem;
-    background-image: url("../img/bike.jpg");
+    max-width: 500px;
+    background-color: #17171a;
+    background-image: url("../img/Office.jpg");
+    background-image: linear-gradient(transparent, #222228 16%), url("../img/Office.jpg");
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: top right;
     background-attachment: inherit;
-    background-size: cover;
+    background-size: inherit;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
 }
@@ -14,12 +16,12 @@
 }
 
 :root {
-    --mdc-theme-primary: #4682B4;
+    --mdc-theme-primary: #222228;
     --mdc-theme-secondary: #827717;
 }
 
 dt {
-    background-color: #4682B4;
+    background-color: #222228;
     color: var(--mdc-theme-on-primary);
 }
 
@@ -28,26 +30,21 @@ h2, dd {
 }
 
 .aktiv {
-    background-color: #4b81d6
+    background: linear-gradient(to right, red, orange);
 }
 
 .inaktiv {
-    background-color: #4682B4
+    background-color: #222228
 }
 
 h1, h2, dl {
-    margin: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-
+    margin: 0px;
 }
 
 h2 {
     text-align: center;
     border-radius: 10px;
     padding: 10px 0px 10px 0px;
-    max-width: 60%;
-    margin-left: 70px;
     margin-bottom: 10px;
     color: rgba(0, 0, 0, 0.8);
 }
@@ -117,8 +114,10 @@ dd input[type="search"] {
 
 .mdc-text-field {
     height: 2rem;
-    margin-left: 15px;
+    margin: 5%;
     border-radius: 5px;
+    width: 65%;
+    margin-left: 18%;
 }
 
 label {
@@ -130,6 +129,9 @@ footer {
     display: flex;
     justify-content: space-between;
     padding-top: 50px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .mdc-dialog {
@@ -159,11 +161,13 @@ footer {
 }
 
 h1 {
+    font-size: xxx-large;
     color: white;
     text-shadow: 5px 5px 5px black;
     padding-top: 50px;
     padding-bottom: 30px;
-    text-align: center;
+    text-align: right;
+    padding-right: 30px;
 }
 
 hr {
@@ -171,8 +175,26 @@ hr {
     opacity: 0%;
 }
 
-footer {
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+main {
+    padding: 50px 5% 20px 5%;
+}
+
+.wrap {
+    margin-top: 60px;
+    display: inline-block;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+.title {
+    font-size: 50px;
+    color: white;
+    text-shadow: #222228;
+}
+.subtitle {
+    font-size: 15px;
+    color: white;
+    text-shadow: #222228;
+    padding-left: 5px;
 }
