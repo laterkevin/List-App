@@ -30,11 +30,12 @@ h2, dd {
 }
 
 .aktiv {
-    background: linear-gradient(to right, red, orange);
+    background: linear-gradient(to right, black, #8b644e);
 }
 
 .inaktiv {
-    background-color: #222228
+    background: linear-gradient(to right, black, #8b644e);
+    //*background-color: #222228*/
 }
 
 h1, h2, dl {
