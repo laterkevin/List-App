@@ -1,8 +1,8 @@
 {
-  "name": "Einkaufsliste",
+  "name": "List-App",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://laterkevin.github.io",
+  "homepage": "https://laterkevin.github.io/List-App/",
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
