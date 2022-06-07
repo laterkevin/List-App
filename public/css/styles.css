@@ -110,7 +110,9 @@ dd label input[type="checkbox"] {
 }
 
 dd input[type="search"] {
-    margin-left: 1.5rem;
+    margin-top: 0.4rem;
+    width: 380px;
+    margin-right: 10px;
 }
 
 .mdc-text-field {
@@ -197,4 +199,8 @@ main {
     color: white;
     text-shadow: #222228;
     padding-left: 5px;
+}
+
+h3 {
+    padding-top: 10px;
 }

@@ -6,7 +6,7 @@ import SortierDialog from "./components/SortierDialog";
 
 /**
  * @version 1.0
- * @author Alfred Walther <alfred.walther@syntax-institut.de>
+ * @author Kevin Later <info@kevinlater.com>
  * @description Diese App ist eine Einkaufsliste mit React.js und separatem Model, welche Offline verwendet werden kann
  * @license Gnu Public Lesser License 3.0
  *
@@ -39,18 +39,21 @@ class App extends React.Component {
     })
   }
 
+  /** klappt Kategorie einkaufen aus oder zu */
   einkaufenAufZuKlappen() {
     const neuerZustand = !this.state.einkaufenAufgeklappt
     localStorage.setItem("einkaufenAufgeklappt", neuerZustand)
     this.setState({einkaufenAufgeklappt: neuerZustand})
   }
 
+  /** klappt Kategorie erledigt aus oder zu */
   erledigtAufZuKlappen() {
     const neuerZustand = !this.state.erledigtAufgeklappt
     localStorage.setItem("erledigtAufgeklappt", neuerZustand)
     this.setState({erledigtAufgeklappt: neuerZustand})
   }
 
+  /** Löscht den Local Storage */
   lsLoeschen() {
     if (confirm("Wollen Sie wirklich alles löschen?!")) {
       localStorage.clear()
@@ -68,6 +71,7 @@ class App extends React.Component {
     this.setState(this.state)
   }
 
+  /** Fügt einen Artikel hinzu */
   artikelHinzufuegen() {
     const eingabe = document.getElementById("artikelEingabe")
     const artikelName = eingabe.value.trim()
@@ -79,12 +83,21 @@ class App extends React.Component {
     eingabe.focus()
   }
 
+  /**
+   * Markiert die aktive Gruppe farbig und fügt nur in der aktiven Gruppe artikel hinzu
+   * @param {gruppe} gruppe - Die aktuelle Gruppe wird als aktive Gruppe gesetzt
+   * */
   setAktiveGruppe(gruppe) {
     Modell.aktiveGruppe = gruppe
     Modell.informieren("[App] Gruppe \"" + gruppe.name + "\" ist nun aktiv")
     this.setState({aktiveGruppe: Modell.aktiveGruppe})
   }
 
+  /**
+   * Schließt den Sortier Dialog
+   * @param {reihenfolge} reihenfolge - Eigene Reihenfolge
+   * @param {sortieren}  sortieren - aufsteigend, absteigend
+   */
   closeSortierDialog = (reihenfolge, sortieren) => {
     if (sortieren) {
       Modell.sortieren(reihenfolge)
@@ -138,15 +151,15 @@ class App extends React.Component {
       <div id="container">
         <header>
           <div className="wrap">
-            <span className="title" onClick="location='http://thepeople.com.au'">Todo's</span>
-            <p><span className="subtitle" onClick="location='http://thepeople.com.au'">Kevin Later's Task Pocket Knife</span></p>
+            <span className="title">Todo's</span>
+            <p><span className="subtitle">Kevin Later's Task Pocket Knife</span></p>
           </div>
-          <h1></h1>
+          <h3></h3>
           <label
             className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
             <span className="mdc-text-field__ripple"></span>
             <input className="mdc-text-field__input" type="search"
-                   id="artikelEingabe" placeholder="Artikel hinzufügen"
+                   id="artikelEingabe" placeholder="Task hinzufügen..."
                    onKeyPress={e => (e.key == 'Enter') ? this.artikelHinzufuegen() : ''}/>
             <span className="mdc-line-ripple"></span>
             <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
