@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/List-App/static/js/main.bf6ebb44.js",
-    "index.html": "/List-App/index.html",
-    "main.bf6ebb44.js.map": "/List-App/static/js/main.bf6ebb44.js.map"
+    "main.js": "/static/js/main.bf6ebb44.js",
+    "index.html": "/index.html",
+    "main.bf6ebb44.js.map": "/static/js/main.bf6ebb44.js.map"
   },
   "entrypoints": [
     "static/js/main.bf6ebb44.js"
