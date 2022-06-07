@@ -103,9 +103,6 @@ dd label {
     padding: 5px 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-left-style: solid;
-    border-color: orangered;
-    border-left-width: 10px;
 }
 
 dd label input[type="checkbox"] {
