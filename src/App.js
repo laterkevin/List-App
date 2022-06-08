@@ -7,7 +7,7 @@ import SortierDialog from "./components/SortierDialog";
 /**
  * @version 1.0
  * @author Kevin Later <info@kevinlater.com>
- * @description Diese App ist eine Einkaufsliste mit React.js und separatem Model, welche Offline verwendet werden kann
+ * @description Diese App ist eine Todo-liste mit React.js und separatem Model, welche Offline verwendet werden kann
  * @license Gnu Public Lesser License 3.0
  *
  */
