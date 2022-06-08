@@ -1,12 +1,13 @@
 #root {
     max-width: 500px;
     background-color: #17171a;
-    background-image: url("../img/Office.jpg");
-    background-image: linear-gradient(transparent, #222228 16%), url("../img/Office.jpg");
+    background-image: url("../img/Write.gif");
+    background-image: linear-gradient(transparent, #222228 20%), url("../img/Write.gif");
     background-repeat: no-repeat;
-    background-position: top right;
+    background-position: top center;
     background-attachment: inherit;
     background-size: inherit;
+    background-size: 500px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
 }
@@ -97,6 +98,11 @@ dd {
     border-bottom-right-radius: 5px;
     opacity: 85%;
     padding-left: 10px;
+    animation-duration: 3s;
+    animation-name: slidein;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
 }
 
 dd label {
@@ -203,4 +209,17 @@ main {
 
 h3 {
     padding-top: 10px;
+}
+
+@keyframes slidein {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }
